@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\Day28-Canvas\\‏canvas"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\Day24-HTML5-ES6\\inClass-HTML5Demos"
+		},
+		{
+			"path": "..\\..\\..\\.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.port": 5501,
+		"liveServer.settings.multiRootWorkspaceName": "Day29-Sprint2"
+	}
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/mamgen.css">
+    <title>MEMEGEN</title>
+</head>
+<body onload="onInit()">
+    <header class="flex align-center space-between">
+        <img class= "logo logo-header" src="LOGO/LOGO.png" alt="memgen">
+        <div class="menu-btns flex">
+            <a href="#" class="nav-btn gallery-btn pressed" onclick="onGalleryMenu()">Gallery</a>
+            <div class="nav-btn">About</div>
+        </div>
+    </header>
+    <main class="main-layout">
+        <div class="search-bar"></div>
+        <div class="gallery">s
+        </div>
+        <div class="memgen-container flex space-around">
+            <div class="canvas-container">
+                <canvas class="draw-area" id="canvasId" height="551" width="541"></canvas>
+                
+            </div>
+            <div class="editor-area flex column-direction">
+                <div class="mem-text-editor">
+                    <input type="text" name="mem-text" placeholder="YOUR TEXT HERE"/>
+                    <div class="edit-btns-container">
+                        <button class="editor-btn" onclick="onMoveTextUp()">UP</button>
+                        <button class="editor-btn" onclick="onMoveTextDown()">DN</button>
+                        <button class="editor-btn" onclick="onAddText()">ADD</button>
+                        <!-- <button class="editor-btn" onclick="onAddText()"><img class="ebtn-img" src="ICONS/add.png" alt=""></button> -->
+                        <!-- <div class="editor-btn" onclick="onAddText()"><img class="ebtn-img" width="45px" height="45px" src="ICONS/add.png" alt=""></div> -->
+                        <button class="editor-btn" onclick="onChangeSelectedLine()">UP/DWN</button>
+                        <button class="editor-btn" onclick="onDeleteText()">TRASH</button>
+                    </div>
+                </div>
+                <div class="font-prefs">
+                    <div class="font-btns-container">
+                        <button class="editor-btn" onclick="onChangeFontSize(1)">A+</button>
+                        <button class="editor-btn" onclick="onChangeFontSize(-1)">A-</button>
+                        <button class="editor-btn" onclick="onSetTextAlign('right')">RGT</button>
+                        <button class="editor-btn" onclick="onSetTextAlign('left')">LFT</button>
+                        <button class="editor-btn" onclick="onSetTextAlign('center')">CNTR</button>
+                        
+                    </div>
+                    <div>
+                        <select class="select-font" name="font-name" id="" onchange="onSetFont(this.value)">
+                            <option value="Impact">Impact</option>
+                            <option value="Ariel">Ariel</option>
+                            <option value="Times New Roman">Times</option>
+                            <option value="Courier">Courier</option>
+                        </select>
+                        <button class="editor-btn"><input class="canvas-color-choice" type="color" id="color" name="canvas-color" value="#ff0000" onchange="onChangeStrokeColor(value)"/></button>
+                        <button class="editor-btn"><input class="canvas-color-choice" type="color" id="color" name="canvas-color" value="#ff0000" onchange="onChangeColor(value)"/></button>
+                    </div>
+                </div>
+                <button class="app-btn">Share</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <img class="logo logo-footer" src="LOGO/LOGO.png" alt="memgen">
+        <p>all rights reserved 2019</p>
+    </footer>
+    <script src="js/memgen-service.js"></script>
+    <script src="js/memgen-controller.js"></script>
+</body>
+</html>
