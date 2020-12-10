@@ -18,9 +18,9 @@ var gCurFont = {
     stroke: null
 }
 
-var gText = null;
-
 var gGalleryDisplayed;
+
+var gCurLineNo = -1;
 
 function onInit() {
     
@@ -68,6 +68,8 @@ function drawMemeImg(meme) {
             console.log('Line : ', line);
             drawText(line);
         });
+
+        if (meme.lines[meme.selectedLineIdx]) drawText(meme.lines[meme.selectedLineIdx], true);
     }
 
 }
@@ -82,11 +84,13 @@ function onGalleryMenu() {
 }
 
 function onAddText() {
+
     const elInputText = document.querySelector('input[name=mem-text]');
     
     if (elInputText.value) {
-        gText = elInputText.value;
-        addTextToMeme(gText, gCurFont, gDefaultFont);
+        const text = elInputText.value;
+        addTextToMeme(text, gCurFont, gDefaultFont);
+        gCurLineNo++;
         renderCanvas();
     }
 }
@@ -106,7 +110,7 @@ function onChooseImage(el) {
 
 function onSetFont(font) {
 
-    const meme = getMemeForDisplay();
+    // const meme = getMemeForDisplay();
 
     // if ( meme.lines.length > 0 ) {
     //     meme.lines[meme.selectedLineIdx].font = font;
@@ -125,13 +129,13 @@ function onChangeFontSize(diff) {
         gCurFont.size = gDefaultFont.size + diff;
     }
 
-    
     renderCanvas();
 }
 
 function onSetTextAlign(align) {
+    
     const meme = getMemeForDisplay();
-    meme.lines[meme.selectedLineIdx].size = meme.lines[meme.selectedLineIdx].align = align;
+    meme.lines[meme.selectedLineIdx].align = align;
 
     renderCanvas();
 }
@@ -146,18 +150,12 @@ function onMoveTextUp() {
 
     const meme = getMemeForDisplay();
     meme.lines[meme.selectedLineIdx].y -= 10;
-
-    markSelectedLine(meme.lines[meme.selectedLineIdx]);
-
     renderCanvas();
 }
 
 function onMoveTextDown() {
     const meme = getMemeForDisplay();
     meme.lines[meme.selectedLineIdx].y += 10;
-
-    markSelectedLine(meme.lines[meme.selectedLineIdx]);
-
     renderCanvas();
 }
 
@@ -177,6 +175,7 @@ function onChangeSelectedLine() {
     if ( gUpDownDir === 1 ) meme.selectedLineIdx++;
     else meme.selectedLineIdx--;
 
+    renderCanvas();
 }
 
 function onChangeColor(value) {
@@ -218,26 +217,42 @@ function onChangeStrokeColor(value) {
 //     gCtx.strokeText(text, offsetX, offsetY);
 // }
 
-function drawText(line) {
+function drawText(line, marked=false) {
 
-    gCtx.lineWidth = '1.5'
-    gCtx.strokeStyle = (line.stroke) ? line.stroke : (gCurFont.stroke) ? gCurFont.stroke : gDefaultFont.stroke;
-    gCtx.fillStyle = (line.color) ? line.color : (gCurFont.color) ? gCurFont.color : gDefaultFont.color;
     const font = (line.font) ? line.font : (gCurFont.name) ? gCurFont.name : gDefaultFont.name;
     const size = (line.size) ? line.size : (gCurFont.size) ? gCurFont.size :  gDefaultFont.size;
 
     gCtx.font = `${size}px ${font}`;
     console.log('Font --- ', gCtx.font);
+    const text_width = gCtx.measureText(line.txt).width;
 
-    gCtx.textAlign = line.align;
+    console.log('line.x beconstfore alignment ', line.x );
+
+    switch (line.align) {
+
+        case 'right':
+            line.x = gCanvas.width - text_width - 20;
+            break;
+
+        case 'left':
+            line.x = 20;
+            break;
+
+        case 'center':
+            line.x = parseInt(gCanvas.width/2) - parseInt(text_width/2);
+            break;
+    }
+
+    if ( marked ) drawRect(line.x - 15, line.y + 10, text_width+30, -line.size-10);
+
+    gCtx.lineWidth = '1.5';
+    gCtx.strokeStyle = (line.stroke) ? line.stroke : (gCurFont.stroke) ? gCurFont.stroke : gDefaultFont.stroke;
+    gCtx.fillStyle = (line.color) ? line.color : (gCurFont.color) ? gCurFont.color : gDefaultFont.color;
+    
+    gCtx.textAlign = 'left';
+
     gCtx.fillText(line.txt, line.x, line.y);
     gCtx.strokeText(line.txt, line.x, line.y);
-
-}
-
-function markSelectedLine(line) {
-
-
 
 }
 
@@ -248,8 +263,8 @@ function drawRect(x, y, width, height) {
     gCtx.rect(x, y, width, height);
     gCtx.stroke() ;
 
-    // gCtx.fillStyle = 'orange'
-    // gCtx.fillRect(x, y, 75, 150)
+    gCtx.fillStyle = 'rgba(226, 210, 210, 0.287)';
+    gCtx.fillRect(x, y, width, height);
 
 }
 

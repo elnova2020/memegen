@@ -51,6 +51,7 @@ function addTextToMeme(text, curfont, deffont){
     line.size = (curfont.size) ? curfont.size : deffont.size;
     line.color = (curfont.color) ? curfont.color : deffont.color;
     line.stroke = (curfont.stroke) ? curfont.stroke : deffont.stroke;
+    line.align = 'center';
 
     gMeme.lines.push( line );
 
@@ -88,6 +89,10 @@ function chooseMeme(imageId) {
 function deleteText() {
 
     if (gMeme.lines.length > 0) gMeme.lines.splice(gMeme.selectedLineIdx, 1);
-    // if ( gMeme.selectedLineIdx > -1  ) gMeme.selectedLineIdx--;
+
+    if ( gMeme.selectedLineIdx >= 0  ) gMeme.selectedLineIdx--;
+    else {
+        if ( gMeme.lines.length > 0 ) gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    }
 }
 
