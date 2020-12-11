@@ -20,8 +20,6 @@ var gCurFont = {
 
 var gGalleryDisplayed;
 
-var gCurLineNo = -1;
-
 function onInit() {
     
     renderGallery();
@@ -83,14 +81,23 @@ function onGalleryMenu() {
     document.querySelector('.gallery-btn').classList.toggle('pressed');
 }
 
+
+function onClickChangeStrokeColor(elBtn) {
+    elBtn.querySelector('input').click();
+}
+
+function onClickChangeFillColor(elBtn) {
+    elBtn.querySelector('input').click();
+}
+
 function onAddText() {
 
     const elInputText = document.querySelector('input[name=mem-text]');
     
     if (elInputText.value) {
         const text = elInputText.value;
-        addTextToMeme(text, gCurFont, gDefaultFont);
-        gCurLineNo++;
+        addTextToMeme(text, gCurFont, gDefaultFont, gCanvas.height);
+        
         renderCanvas();
     }
 }
@@ -164,6 +171,8 @@ var gUpDownDir = 1;
 function onChangeSelectedLine() {
     const meme = getMemeForDisplay();
 
+    if (meme.lines.length === 0 || meme.lines.length === 1) return;
+
     if (meme.selectedLineIdx === 0) {
         gUpDownDir = 1;
     }
@@ -178,7 +187,7 @@ function onChangeSelectedLine() {
     renderCanvas();
 }
 
-function onChangeColor(value) {
+function onChangeFillColor(value) {
 
     // const meme = getMemeForDisplay();
 
@@ -196,6 +205,11 @@ function onChangeStrokeColor(value) {
     gCurFont.stroke = value;
 
     renderCanvas();
+}
+
+function onDownloadMeme(elLink) {
+    var imgContent = gCanvas.toDataURL('image/jpeg');
+    elLink.href = imgContent
 }
 
 // function drawText(event) {

@@ -33,25 +33,33 @@ function getImgOfMeme(meme) {
     return gImages.find(img=>img.id == meme.selectedImgId);
 }
 
-function addTextToMeme(text, curfont, deffont){
+function addTextToMeme(text, curfont, deffont, height){
 
-    let lastY = 0;
-
-    if ( gMeme.lines.length !== 0 ) {
-        lastY = gMeme.lines[gMeme.lines.length-1].y;
-    } else {
-        gMeme.selectedLineIdx = 0;
-    }
-
+    // let lastY = 0;
     const line = {};
+
     line.txt = text;
-    line.x = 100;
-    line.y = lastY+50;
+    // line.x = 100;
+    // line.y = lastY+50;
     line.font = (curfont.name) ? curfont.name : deffont.name;
     line.size = (curfont.size) ? curfont.size : deffont.size;
     line.color = (curfont.color) ? curfont.color : deffont.color;
     line.stroke = (curfont.stroke) ? curfont.stroke : deffont.stroke;
     line.align = 'center';
+
+    if ( gMeme.lines.length !== 0 ) {
+        // lastY = gMeme.lines[gMeme.lines.length-1].y;
+        
+        if ( gMeme.lines.length === 1 ) {
+            line.y = height - 20; // the second line is on the bottom of the screen
+        } else {
+            line.y = parseInt(height/2); // the third and others - center of the screen
+        }
+
+    } else { // empty list
+        gMeme.selectedLineIdx = 0;
+        line.y = line.size + 20; //the first line on the top of a screen
+    }
 
     gMeme.lines.push( line );
 

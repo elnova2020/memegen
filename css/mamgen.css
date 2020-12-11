@@ -66,8 +66,9 @@ a {
     text-decoration: none;
 }
 
-image {
+img {
     width: 100%;
+    cursor: pointer;
 }
 
 button {
@@ -166,10 +167,10 @@ input[name=mem-text] {
 }
 
 .ebtn-img {
-    width: 45px;
-    height: 45px;
-    margin-top: 7px;
-    margin-bottom: 8px;
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .select-font {
@@ -180,12 +181,14 @@ input[name=mem-text] {
 }
 
 .app-btn {
+    border-radius: 1rem;
     width: 120px;
-    height: 60px;
-    margin-top: 200px;
+    line-height: 60px;
+    margin-top: 150px;
     color: white;
     font-size: 1.125rem;
     background-color: #ff7f00;
+    text-align: center;
 }
 
 .draw-area {
@@ -205,5 +208,13 @@ input[name=mem-text] {
     object-fit: cover;
 }
 
+input[type=color] {
+    width: 0px;
+    height: 0px;
+    padding: 0;
+    border: none;
+    appearance: none;
+    opacity: 0;
+}
 
 

@@ -15,8 +15,9 @@
         </div>
     </header>
     <main class="main-layout">
-        <div class="search-bar"></div>
-        <div class="gallery">s
+        <div class="search-bar">
+        </div>
+        <div class="gallery">
         </div>
         <div class="memgen-container flex space-around">
             <div class="canvas-container">
@@ -27,22 +28,23 @@
                 <div class="mem-text-editor">
                     <input type="text" name="mem-text" placeholder="YOUR TEXT HERE"/>
                     <div class="edit-btns-container">
-                        <button class="editor-btn" onclick="onMoveTextUp()">UP</button>
-                        <button class="editor-btn" onclick="onMoveTextDown()">DN</button>
-                        <button class="editor-btn" onclick="onAddText()">ADD</button>
-                        <!-- <button class="editor-btn" onclick="onAddText()"><img class="ebtn-img" src="ICONS/add.png" alt=""></button> -->
+                        <button class="editor-btn" onclick="onMoveTextUp()"><img class="ebtn-img" src="ICONS/move-up.jpg" alt=""></button>
+                        <button class="editor-btn" onclick="onMoveTextDown()"><img class="ebtn-img" src="ICONS/move-down.jpg" alt=""></button>
+                        <!-- <button class="editor-btn" onclick="onAddText()">ADD</button> -->
+                        
                         <!-- <div class="editor-btn" onclick="onAddText()"><img class="ebtn-img" width="45px" height="45px" src="ICONS/add.png" alt=""></div> -->
-                        <button class="editor-btn" onclick="onChangeSelectedLine()">UP/DWN</button>
-                        <button class="editor-btn" onclick="onDeleteText()">TRASH</button>
+                        <button class="editor-btn" onclick="onChangeSelectedLine()"><img class="ebtn-img" src="ICONS/up-and-down-opposite-double-arrows-side-by-side.png" alt=""></button>
+                        <button class="editor-btn" onclick="onAddText()"><img class="ebtn-img" src="ICONS/add.png" alt=""></button>
+                        <button class="editor-btn" onclick="onDeleteText()"><img class="ebtn-img" src="ICONS/trash.png" alt=""></button>
                     </div>
                 </div>
                 <div class="font-prefs">
                     <div class="font-btns-container">
-                        <button class="editor-btn" onclick="onChangeFontSize(1)">A+</button>
-                        <button class="editor-btn" onclick="onChangeFontSize(-1)">A-</button>
-                        <button class="editor-btn" onclick="onSetTextAlign('right')">RGT</button>
-                        <button class="editor-btn" onclick="onSetTextAlign('left')">LFT</button>
-                        <button class="editor-btn" onclick="onSetTextAlign('center')">CNTR</button>
+                        <button class="editor-btn" onclick="onChangeFontSize(1)"><img class="ebtn-img" src="ICONS/increase font - icon.png" alt=""></button>
+                        <button class="editor-btn" onclick="onChangeFontSize(-1)"><img class="ebtn-img" src="ICONS/decrease font - icon.png" alt=""></button>
+                        <button class="editor-btn" onclick="onSetTextAlign('right')"><img class="ebtn-img" src="ICONS/align-to-right.png" alt=""></button>
+                        <button class="editor-btn" onclick="onSetTextAlign('left')"><img class="ebtn-img" src="ICONS/align-to-left.png" alt=""></button>
+                        <button class="editor-btn" onclick="onSetTextAlign('center')"><img class="ebtn-img" src="ICONS/center-text-alignment.png" alt=""></button>
                         
                     </div>
                     <div>
@@ -52,11 +54,20 @@
                             <option value="Times New Roman">Times</option>
                             <option value="Courier">Courier</option>
                         </select>
-                        <button class="editor-btn"><input class="canvas-color-choice" type="color" id="color" name="canvas-color" value="#ff0000" onchange="onChangeStrokeColor(value)"/></button>
-                        <button class="editor-btn"><input class="canvas-color-choice" type="color" id="color" name="canvas-color" value="#ff0000" onchange="onChangeColor(value)"/></button>
+                        <button class="editor-btn stroke-btn" onclick="onClickChangeStrokeColor(this)">
+                            <img class="ebtn-img" src="ICONS/text stroke.png" alt="">
+                            <input class="stroke-color-select" type="color" id="color" name="stroke-color" value="#000000" onchange="onChangeStrokeColor(value)"/>
+                        </button>
+                        <button class="editor-btn fill-btn" onclick="onClickChangeFillColor(this)">
+                            <img class="ebtn-img" src="ICONS/paint-board-and-brush.png" alt="">
+                            <input class="stroke-color-select" type="color" id="color" name="stroke-color" value="#ffffff" onchange="onChangeFillColor(value)"/>
+                        </button>
+                        
                     </div>
                 </div>
-                <button class="app-btn">Share</button>
+                <!-- <button class="app-btn" onclick="onDownloadMeme()">Download</button> -->
+                <!-- <button class="btn" type="submit">Publish</button> -->
+                    <a href="#" class="app-btn" onclick="onDownloadMeme(this)" download="meme.jpg">Download</a>
             </div>
         </div>
     </main>
