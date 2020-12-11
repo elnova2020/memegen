@@ -7,39 +7,54 @@
     <title>MEMEGEN</title>
 </head>
 <body onload="onInit()">
-    <header class="flex align-center space-between">
-        <img class= "logo logo-header" src="LOGO/LOGO.png" alt="memgen">
-        <div class="menu-btns flex">
-            <a href="#" class="nav-btn gallery-btn pressed" onclick="onGalleryMenu()">Gallery</a>
-            <div class="nav-btn">About</div>
+    <header >
+        <div class="main-layout flex align-center space-between">
+            <img class= "logo logo-header" src="LOGO/LOGO.png" alt="memgen">
+            <div class="menu-btns flex">
+                <a href="#" class="nav-btn gallery-btn pressed" onclick="onGalleryMenu()">Gallery</a>
+                <div class="nav-btn">About</div>
+            </div>
         </div>
     </header>
     <main class="main-layout">
-        <div class="search-bar">
+        <div class="gallery-layout">
+
+            <div class="search-bar flex align-center space-between">
+                <input class="search-input" type="text" name="search" placeholder= "Enter search keyword" onchange="onFilterImages(this.value)">
+                <div class="keywords flex">
+                    <div class="keyword happy" onclick="onFilterImages('happy')">happy</div>
+                    <div class="keyword cute" onclick="onFilterImages('cute')">cute</div>
+                    <div class="keyword dogs" onclick="onFilterImages('dogs')">dogs</div>
+                    <div class="keyword kids" onclick="onFilterImages('kids')">kids</div>
+                    <div class="keyword animals" onclick="onFilterImages('animals')">animals</div>
+                    <div class="keyword politics" onclick="onFilterImages('politics')">politics</div>
+                    <div class="keyword laugh" onclick="onFilterImages('laugh')">laugh</div>
+                </div>
+            </div>
+            <div class="gallery">
+            </div>
         </div>
-        <div class="gallery">
-        </div>
+
         <div class="memgen-container flex space-around">
-            <div class="canvas-container">
-                <canvas class="draw-area" id="canvasId" height="551" width="541"></canvas>
+            <div class="canvas-container" onclick="onCanvasClick()">
+                <canvas class="draw-area" id="canvasId" height="551" width="541" 
+                onmousedown="onCanvasMouseDown(event)"
+                onmouseup="onCanvasMouseUp(event)" onmousemove="onCanvasMouseMove(event)"></canvas>
                 
             </div>
-            <div class="editor-area flex column-direction">
+            <div class="editor-area flex column-direction space-between">
                 <div class="mem-text-editor">
                     <input type="text" name="mem-text" placeholder="YOUR TEXT HERE"/>
-                    <div class="edit-btns-container">
+                    <div class="edit-btns-container flex space-between">
                         <button class="editor-btn" onclick="onMoveTextUp()"><img class="ebtn-img" src="ICONS/move-up.jpg" alt=""></button>
                         <button class="editor-btn" onclick="onMoveTextDown()"><img class="ebtn-img" src="ICONS/move-down.jpg" alt=""></button>
-                        <!-- <button class="editor-btn" onclick="onAddText()">ADD</button> -->
-                        
-                        <!-- <div class="editor-btn" onclick="onAddText()"><img class="ebtn-img" width="45px" height="45px" src="ICONS/add.png" alt=""></div> -->
                         <button class="editor-btn" onclick="onChangeSelectedLine()"><img class="ebtn-img" src="ICONS/up-and-down-opposite-double-arrows-side-by-side.png" alt=""></button>
                         <button class="editor-btn" onclick="onAddText()"><img class="ebtn-img" src="ICONS/add.png" alt=""></button>
                         <button class="editor-btn" onclick="onDeleteText()"><img class="ebtn-img" src="ICONS/trash.png" alt=""></button>
                     </div>
                 </div>
                 <div class="font-prefs">
-                    <div class="font-btns-container">
+                    <div class="font-btns-container flex space-between">
                         <button class="editor-btn" onclick="onChangeFontSize(1)"><img class="ebtn-img" src="ICONS/increase font - icon.png" alt=""></button>
                         <button class="editor-btn" onclick="onChangeFontSize(-1)"><img class="ebtn-img" src="ICONS/decrease font - icon.png" alt=""></button>
                         <button class="editor-btn" onclick="onSetTextAlign('right')"><img class="ebtn-img" src="ICONS/align-to-right.png" alt=""></button>
@@ -47,7 +62,7 @@
                         <button class="editor-btn" onclick="onSetTextAlign('center')"><img class="ebtn-img" src="ICONS/center-text-alignment.png" alt=""></button>
                         
                     </div>
-                    <div>
+                    <div class="font-defs flex space-between">
                         <select class="select-font" name="font-name" id="" onchange="onSetFont(this.value)">
                             <option value="Impact">Impact</option>
                             <option value="Arial">Arial</option>
@@ -64,10 +79,16 @@
                         </button>
                         
                     </div>
+
+
                 </div>
-                <!-- <button class="app-btn" onclick="onDownloadMeme()">Download</button> -->
-                <!-- <button class="btn" type="submit">Publish</button> -->
-                    <a href="#" class="app-btn" onclick="onDownloadMeme(this)" download="meme.jpg">Download</a>
+
+                <div class="stickers-area">
+                    <img  src="stickes/present.png" alt="" onclick="onAddSticker(this)">
+                    <img  src="stickes/hat.png" alt="" onclick="onAddSticker(this)">
+                    <img  src="stickes/galsses_and_nose.png" alt="" onclick="onAddSticker(this)">
+                </div>
+                <a href="#" class="app-btn" onclick="onDownloadMeme(this)" download="meme.jpg">Download</a>
             </div>
         </div>
     </main>

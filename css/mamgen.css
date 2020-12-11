@@ -44,6 +44,11 @@
 }
 
 @font-face {
+    font-family: Monserrat-Medium;
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf)
+}
+
+@font-face {
     font-family: Impact;
     src: url(../fonts/impact/impact.ttf)
 }
@@ -134,25 +139,39 @@ main {
 .memgen-container {
     padding-top: 26px;
     padding-bottom: 23px;
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
+    /* display: none; */
 }
 
 .canvas-container {
-    width: 541px;
+    max-width: 541px;
     height: 551px;
     margin-inline-end:30px;
 }
 
+.mem-text-editor {
+    max-width: 541px;
+}
+
 .editor-area {
-    width: 541px;
+    width: 373px;
     height: 551px;
     padding-top: 5px;
+}
+
+.font-prefs {
+    padding-top: 30px;
 }
 
 input[name=mem-text] {
     width: 373px;
     height: 60px;
     font-size: 1.25rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.875rem;
+    letter-spacing: 0.125rem;
+    padding-inline-start: 20px;
     /* font-family: 'Courier New', Courier, monospace;
     font-family: 'Times New Roman', Times, serif;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
@@ -161,7 +180,7 @@ input[name=mem-text] {
 .editor-btn {
     width: 60px;
     height: 60px;
-    margin-top: 20px;
+    margin-top: 11px;
     background-color: white;
     text-align: center;
 }
@@ -184,28 +203,11 @@ input[name=mem-text] {
     border-radius: 1rem;
     width: 120px;
     line-height: 60px;
-    margin-top: 150px;
+    /* margin-top: 50px; */
     color: white;
     font-size: 1.125rem;
     background-color: #ff7f00;
     text-align: center;
-}
-
-.draw-area {
-    background-color: chartreuse;
-}
-
-.gallery {
-    margin-top: 102px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(353px, 1fr));
-    gap: 21px;
-}
-
-.grid-item {
-    width: 353px;
-    height: 278px;
-    object-fit: cover;
 }
 
 input[type=color] {
@@ -215,6 +217,69 @@ input[type=color] {
     border: none;
     appearance: none;
     opacity: 0;
+}
+
+.select-font {
+    align-self: flex-end;
+}
+
+.draw-area {
+    background-color: chartreuse;
+}
+
+.stickers-area {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+.stickers-area img {
+    width: 75px;
+}
+
+.selected {
+    background-color: lightblue;
+}
+
+/* GALLERY */
+
+
+.search-bar {
+    height:102px;
+    background-color: white;
+}
+
+.gallery {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(353px, 1fr));
+    gap: 21px;
+}
+
+.grid-item {
+    /* width: 353px;
+    height: 278px; */
+    object-fit: cover;
+}
+
+.search-input {
+    font-family: Monserrat-Medium, sans-serif;
+    font-size: 1.1875rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-inline-start: 20px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.keyword {
+    color: black;
+    margin-inline-end: 31px;
+    font-size: 1.1875rem;
+    align-self: baseline;
 }
 
 

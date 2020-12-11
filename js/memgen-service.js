@@ -1,25 +1,25 @@
 'use strict'
 
-var gKeywords = { 'happy' : 12, 'funny': 1 };
+var gKeywords = { 'happy' : 28, 'cute': 20, 'dogs': 16, 'kids' : 16, 'politics': 10, 'animals': 14, 'laugh': 16 };
 
-var gImages = [ {id:1, url: 'img/1.jpg', keywords: ['happy']},
-                {id:2, url: 'img/2.jpg', keywords: ['happy']},
-                {id:3, url: 'img/3.jpg', keywords: ['happy']},
-                {id:4, url: 'img/4.jpg', keywords: ['happy']},
-                {id:5, url: 'img/5.jpg', keywords: ['happy']},
-                {id:6, url: 'img/6.jpg', keywords: ['happy']},
-                {id:7, url: 'img/7.jpg', keywords: ['happy']},
-                {id:8, url: 'img/8.jpg', keywords: ['happy']},
-                {id:9, url: 'img/9.jpg', keywords: ['happy']},
-                {id:10, url: 'img/10.jpg', keywords: ['happy']},
-                {id:11, url: 'img/11.jpg', keywords: ['happy']},
-                {id:12, url: 'img/12.jpg', keywords: ['happy']},
-                {id:13, url: 'img/13.jpg', keywords: ['happy']},
-                {id:14, url: 'img/14.jpg', keywords: ['happy']},
-                {id:15, url: 'img/15.jpg', keywords: ['happy']},
-                {id:16, url: 'img/16.jpg', keywords: ['happy']},
-                {id:17, url: 'img/17.jpg', keywords: ['happy']},
-                {id:18, url: 'img/18.jpg', keywords: ['happy']}
+var gImages = [ {id:1, url: 'img/1.jpg', keywords: ['politics', 'men']},
+                {id:2, url: 'img/2.jpg', keywords: ['dogs', 'animals', 'cute', 'happy']},
+                {id:3, url: 'img/3.jpg', keywords: ['dogs', 'kids', 'cute', 'happy']},
+                {id:4, url: 'img/4.jpg', keywords: ['cats', 'animals', 'cute', 'happy']},
+                {id:5, url: 'img/5.jpg', keywords: ['kids']},
+                {id:6, url: 'img/6.jpg', keywords: ['talk']},
+                {id:7, url: 'img/7.jpg', keywords: ['kids', 'suprize']},
+                {id:8, url: 'img/8.jpg', keywords: ['laugh', 'happy', 'men']},
+                {id:9, url: 'img/9.jpg', keywords: ['happy', 'kids', 'laugh']},
+                {id:10, url: 'img/10.jpg', keywords: ['happy', 'politics', 'laugh', 'men']},
+                {id:11, url: 'img/11.jpg', keywords: ['fight', 'men']},
+                {id:12, url: 'img/12.jpg', keywords: ['talk', 'men']},
+                {id:13, url: 'img/13.jpg', keywords: ['happy', 'celebrate', 'men']},
+                {id:14, url: 'img/14.jpg', keywords: ['movies', 'men']},
+                {id:15, url: 'img/15.jpg', keywords: ['movies', 'men']},
+                {id:16, url: 'img/16.jpg', keywords: ['suprize', 'smile','men']},
+                {id:17, url: 'img/17.jpg', keywords: ['politics', 'men']},
+                {id:18, url: 'img/18.jpg', keywords: ['animation', 'toys']}
             ];
 
 var gMeme;
@@ -72,29 +72,17 @@ function chooseMeme(imageId) {
     gMeme = {
         selectedImgId: imageId,
         selectedLineIdx: -1,
-        lines : []
+        lines : [],
+        stickers: []
     }
 }
 
-// gMeme = {
-//     selectedImgId: imageId,
-//     selectedLineIdx: -1,
-
-//     lines : [
-//         {
-//             txt: "Hello !!!",
-//             font: 'Impact',
-//             size: 60,
-//             align: 'left',
-//             color: 'yellow',
-//             stroke: 'green',
-//             x: 200,
-//             y: 200
-//         }
-//     ]
-// }
-
 function deleteText() {
+
+    if ( gMeme.selectedItem === 'sticker' && gMeme.stickers.length > 0 ){
+        gMeme.stickers.splice(gMeme.selectedStickerIdx, 1);
+        return;
+    }
 
     if (gMeme.lines.length > 0) gMeme.lines.splice(gMeme.selectedLineIdx, 1);
 
@@ -102,5 +90,37 @@ function deleteText() {
     else {
         if ( gMeme.lines.length > 0 ) gMeme.selectedLineIdx = gMeme.lines.length - 1;
     }
+}
+
+function getImagesByKeyword(keyword) {
+
+    if (keyword === 'all')
+        return gImages.slice();
+
+    const imgs = gImages.filter(img=>{
+        return img.keywords.includes(keyword);
+    });
+
+    return imgs;
+}
+
+function addRateToKeayword(keyword) {
+    gKeywords[keyword]++;
+}
+
+function getKeywords() {
+    return gKeywords;
+}
+
+function addSticker( url ) {
+    const sticker = {};
+
+    sticker.url = url;
+    sticker.x = 50;
+    sticker.y = 50;
+
+    gMeme.stickers.push(sticker);
+    gMeme.selectedStickerIdx = gMeme.stickers.length-1;
+
 }
 
