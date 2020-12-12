@@ -147,12 +147,14 @@ main {
     max-width: 541px;
     /* height: 551px; */
     padding-inline-end:30px;
+    margin-inline-start: 50px;
 }
 
 .editor-area {
     width: 373px;
     height: 551px;
     padding-top: 5px;
+    margin-inline-end: 50px;
 }
 
 .font-prefs {
@@ -230,6 +232,10 @@ input[type=color] {
     margin-top: 30px;
 }
 
+.select-font {
+    width: 220px;
+}
+
 .stickers-area img {
     width: 75px;
 }
@@ -285,14 +291,17 @@ input[type=color] {
         grid-template-columns: repeat(2,  1fr);
     }
 
+    .canvas-container {
+       margin: 0;
+    }
+    
+    .editor-area {
+        margin:0;
+    }
+
     .editor-area {
         width: 450px;
     }
-
-    .select-font {
-        width: 220px;
-    }
-    
 
 }
 

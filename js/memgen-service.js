@@ -33,18 +33,17 @@ function getImgOfMeme(meme) {
     return gImages.find(img=>img.id == meme.selectedImgId);
 }
 
-function addTextToMeme(text, curfont, deffont, height){
+function addTextToMeme(text, height){
 
     // let lastY = 0;
     const line = {};
 
     line.txt = text;
+    line.color = 'white';
+    line.stroke = 'black';
+    line.size = 60;
     // line.x = 100;
-    // line.y = lastY+50;
-    line.font = (curfont.name) ? curfont.name : deffont.name;
-    line.size = (curfont.size) ? curfont.size : deffont.size;
-    line.color = (curfont.color) ? curfont.color : deffont.color;
-    line.stroke = (curfont.stroke) ? curfont.stroke : deffont.stroke;
+    // line.y = lastY+50; //OLD CODE FOR ANOTHER  PLACEMENT LOGIC
     line.align = 'center';
 
     if ( gMeme.lines.length !== 0 ) {

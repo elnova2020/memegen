@@ -69,15 +69,15 @@
                             <option value="Times New Roman">Times</option>
                             <option value="Courier">Courier</option>
                         </select>
+                        
                         <button class="editor-btn stroke-btn" onclick="onClickChangeStrokeColor(this)">
                             <img class="ebtn-img" src="ICONS/text stroke.png" alt="">
-                            <input class="stroke-color-select" type="color" id="color" name="stroke-color" value="#000000" onchange="onChangeStrokeColor(value)"/>
+                            <input class="stroke-color-select" type="color" id="scolor" name="stroke-color" value="#000000" onchange="onChangeStrokeColor(this.value)"/>
                         </button>
                         <button class="editor-btn fill-btn" onclick="onClickChangeFillColor(this)">
                             <img class="ebtn-img" src="ICONS/paint-board-and-brush.png" alt="">
-                            <input class="stroke-color-select" type="color" id="color" name="stroke-color" value="#ffffff" onchange="onChangeFillColor(value)"/>
+                            <input class="fill-color-select" type="color" id="fcolor" name="fill-color" value="#ffffff" onchange="onChangeFillColor(this.value)"/>
                         </button>
-                        
                     </div>
 
 

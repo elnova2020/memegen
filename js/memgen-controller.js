@@ -139,7 +139,7 @@ function onAddText() {
 
     if (elInputText.value) {
         const text = elInputText.value;
-        addTextToMeme(text, gCurFont, gDefaultFont, gCanvas.height);
+        addTextToMeme(text, gCanvas.height);
         renderCanvas();
     }
 }
@@ -159,13 +159,16 @@ function onChooseImage(el) {
 
 function onSetFont(font) {
 
-    // const meme = getMemeForDisplay();
+    const meme = getMemeForDisplay();
 
-    // if ( meme.lines.length > 0 ) {
-    //     meme.lines[meme.selectedLineIdx].font = font;
-    // }
+    if ( meme.lines.length > 0 ) {
+        meme.lines[meme.selectedLineIdx].font = font;
+    }
 
     gCurFont.name = font;
+
+    renderCanvas();
+
 }
 
 function onChangeFontSize(diff) {
@@ -231,22 +234,25 @@ function onChangeSelectedLine() {
 
 function onChangeFillColor(value) {
 
-    // const meme = getMemeForDisplay();
+    const meme = getMemeForDisplay();
 
-    // if ( meme.lines.length > 0 ) meme.lines[meme.selectedLineIdx].color = value;
+    if ( meme.lines.length > 0 ) meme.lines[meme.selectedLineIdx].color = value;
+
     gCurFont.color = value;
+
     renderCanvas();
 }
 
 function onChangeStrokeColor(value) {
 
-    // const meme = getMemeForDisplay();
+    const meme = getMemeForDisplay();
 
-    // if ( meme.lines.length > 0 ) meme.lines[meme.selectedLineIdx].stroke = value;
+    if ( meme.lines.length > 0 ) meme.lines[meme.selectedLineIdx].stroke = value;
 
     gCurFont.stroke = value;
 
     renderCanvas();
+
 }
 
 function onDownloadMeme(elLink) {
@@ -286,8 +292,12 @@ function drawText(line, marked = false) {
     if (marked) drawRect(line.x - 15, line.y + 10, text_width + 30, -line.size - 10);
 
     gCtx.lineWidth = '3';
-    gCtx.strokeStyle = (line.stroke) ? line.stroke : (gCurFont.stroke) ? gCurFont.stroke : gDefaultFont.stroke;
-    gCtx.fillStyle = (line.color) ? line.color : (gCurFont.color) ? gCurFont.color : gDefaultFont.color;
+    
+    // gCtx.strokeStyle = (line.stroke) ? line.stroke : (gCurFont.stroke) ? gCurFont.stroke : gDefaultFont.stroke;
+    // gCtx.fillStyle = (line.color) ? line.color : (gCurFont.color) ? gCurFont.color : gDefaultFont.color;
+
+    gCtx.strokeStyle = line.stroke;
+    gCtx.fillStyle = line.color;
 
     gCtx.textAlign = 'left';
 
