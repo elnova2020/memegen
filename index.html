@@ -40,6 +40,10 @@
                 <canvas class="draw-area" id="canvasId" height="551" width="541" 
                 onmousedown="onCanvasMouseDown(event)"
                 onmouseup="onCanvasMouseUp(event)" onmousemove="onCanvasMouseMove(event)"></canvas>
+                <!-- ontouchstart="onCanvasTouchStart(event)"
+                ontouchmove="onCanvasTouchMove(event)"
+                ontouchend="onCanvasTouchEnd(event)"> -->
+            </canvas>
                 
             </div>
             <div class="editor-area flex column-direction space-between">
@@ -57,10 +61,9 @@
                     <div class="font-btns-container flex space-between">
                         <button class="editor-btn" onclick="onChangeFontSize(1)"><img class="ebtn-img" src="ICONS/increase font - icon.png" alt=""></button>
                         <button class="editor-btn" onclick="onChangeFontSize(-1)"><img class="ebtn-img" src="ICONS/decrease font - icon.png" alt=""></button>
-                        <button class="editor-btn" onclick="onSetTextAlign('right')"><img class="ebtn-img" src="ICONS/align-to-right.png" alt=""></button>
                         <button class="editor-btn" onclick="onSetTextAlign('left')"><img class="ebtn-img" src="ICONS/align-to-left.png" alt=""></button>
                         <button class="editor-btn" onclick="onSetTextAlign('center')"><img class="ebtn-img" src="ICONS/center-text-alignment.png" alt=""></button>
-                        
+                        <button class="editor-btn" onclick="onSetTextAlign('right')"><img class="ebtn-img" src="ICONS/align-to-right.png" alt=""></button>
                     </div>
                     <div class="font-defs flex space-between">
                         <select class="select-font" name="font-name" id="" onchange="onSetFont(this.value)">

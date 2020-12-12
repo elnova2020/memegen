@@ -436,6 +436,119 @@ function onCanvasMouseMove(event) {
     }
 }
 
+// function onCanvasTouchStart(event) {
+//     // event.preventDefault();
+//     console.log('Mouse event - start ', event);
+//     console.log('Touch event - start ', event);
+
+//     event.changedTouches[0]
+
+//     let offsetX= event.changedTouches[0].clientX;
+//     let offsetY = event.changedTouches[0].clientY;
+//     const meme = getMemeForDisplay();
+
+//     let idx = -1;
+//     let clickedLine = meme.lines.find(line => {
+//         idx++;
+//         return offsetX >= line.x && offsetX <= line.x + line.textWidth
+//             && offsetY >= line.y - line.size && offsetY < line.y;
+//     });
+
+//     if (clickedLine) {
+//         console.log('clicked line ', clickedLine);
+//         gDraggableLine = clickedLine;
+//         gDraggableLineIdx = idx;
+//         meme.selectedLineIdx = idx;
+//         meme.selectedItem = 'line';
+//         clickedLine.align = 'none';
+//         return;
+//     }
+
+//     if (gStickerSelected) { //sticker just added to meme
+//         const meme = getMemeForDisplay();
+//         meme.stickers[meme.selectedStickerIdx];
+//         meme.stickers[meme.selectedStickerIdx].x = offsetX;
+//         meme.stickers[meme.selectedStickerIdx].y = offsetY;
+//         gStickerSelected = false;
+//         document.querySelector('.selected').classList.toggle('selected');
+//     } else { //dragging existing sticker
+
+//         let sIdx = -1;
+//         let clickedSticker = meme.stickers.find(sticker => {
+//             sIdx++;
+//             return offsetX >= sticker.x && offsetX <= sticker.x + 75
+//                 && offsetY >= sticker.y && offsetY < sticker.y + 75;
+//         });
+
+//         if (clickedSticker) {
+//             console.log('SET ALL DATA TO STICKER...');
+//             gDraggableSticker = clickedSticker;
+//             gDraggableStickerIdx = sIdx;
+//             meme.selectedStickerIdx = sIdx;
+//             meme.selectedItem = 'sticker';
+//             return;
+//         }
+//     }
+// }
+
+// function onCanvasTouchMove(event) {
+//     event.preventDefault();
+//     console.log('Touch event - move ', event);
+// }
+
+// function onCanvasTouchEnd(event) {
+//     // event.preventDefault();
+//     console.log('Mouse event - end ', event);
+//     console.log('Touch event - end ', event);
+
+//     let offsetX= event.changedTouches[0].clientX;
+//     let offsetY = event.changedTouches[0].clientY;
+//     const meme = getMemeForDisplay();
+
+//     let idx = -1;
+//     let clickedLine = meme.lines.find(line => {
+//         idx++;
+//         return offsetX >= line.x && offsetX <= line.x + line.textWidth
+//             && offsetY >= line.y - line.size && offsetY < line.y;
+//     });
+
+//     if (clickedLine) {
+//         console.log('clicked line ', clickedLine);
+//         gDraggableLine = clickedLine;
+//         gDraggableLineIdx = idx;
+//         meme.selectedLineIdx = idx;
+//         meme.selectedItem = 'line';
+//         clickedLine.align = 'none';
+//         return;
+//     }
+
+//     if (gStickerSelected) { //sticker just added to meme
+//         const meme = getMemeForDisplay();
+//         meme.stickers[meme.selectedStickerIdx];
+//         meme.stickers[meme.selectedStickerIdx].x = offsetX;
+//         meme.stickers[meme.selectedStickerIdx].y = offsetY;
+//         gStickerSelected = false;
+//         document.querySelector('.selected').classList.toggle('selected');
+//     } else { //dragging existing sticker
+
+//         let sIdx = -1;
+//         let clickedSticker = meme.stickers.find(sticker => {
+//             sIdx++;
+//             return offsetX >= sticker.x && offsetX <= sticker.x + 75
+//                 && offsetY >= sticker.y && offsetY < sticker.y + 75;
+//         });
+
+//         if (clickedSticker) {
+//             console.log('SET ALL DATA TO STICKER...');
+//             gDraggableSticker = clickedSticker;
+//             gDraggableStickerIdx = sIdx;
+//             meme.selectedStickerIdx = sIdx;
+//             meme.selectedItem = 'sticker';
+//             return;
+//         }
+//     }
+// }
+
 function onAddSticker(elImg) {
 
     gStickerSelected = true;
