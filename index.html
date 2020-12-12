@@ -9,8 +9,8 @@
 <body onload="onInit()">
     <header >
         <div class="main-layout flex align-center space-between">
-            <img class= "logo logo-header" src="LOGO/LOGO.png" alt="memgen">
-            <div class="menu-btns flex">
+            <img class= "logo" src="LOGO/LOGO.png" alt="memgen">
+            <div class="menu-btns flex wrap">
                 <a href="#" class="nav-btn gallery-btn pressed" onclick="onGalleryMenu()">Gallery</a>
                 <div class="nav-btn">About</div>
             </div>
@@ -19,9 +19,9 @@
     <main class="main-layout">
         <div class="gallery-layout">
 
-            <div class="search-bar flex align-center space-between">
+            <div class="search-bar flex align-center space-between wrap">
                 <input class="search-input" type="text" name="search" placeholder= "Enter search keyword" onchange="onFilterImages(this.value)">
-                <div class="keywords flex">
+                <div class="keywords flex space-around wrap">
                     <div class="keyword happy" onclick="onFilterImages('happy')">happy</div>
                     <div class="keyword cute" onclick="onFilterImages('cute')">cute</div>
                     <div class="keyword dogs" onclick="onFilterImages('dogs')">dogs</div>
@@ -43,7 +43,7 @@
                 
             </div>
             <div class="editor-area flex column-direction space-between">
-                <div class="mem-text-editor">
+                <div class="mem-text-editor flex column-direction">
                     <input type="text" name="mem-text" placeholder="YOUR TEXT HERE"/>
                     <div class="edit-btns-container flex space-between">
                         <button class="editor-btn" onclick="onMoveTextUp()"><img class="ebtn-img" src="ICONS/move-up.jpg" alt=""></button>

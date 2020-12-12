@@ -32,6 +32,10 @@
     flex-direction: column;
 }
 
+.flex.wrap {
+    flex-wrap: wrap;
+}
+
 /* CSS */
 
 * {
@@ -91,10 +95,6 @@ input, select {
     height: 22px;
 }
 
-.logo-header {
-    margin-inline-start: 49px;
-}
-
 .logo-footer {
     margin-top: 77px;
 }
@@ -139,19 +139,14 @@ main {
 .memgen-container {
     padding-top: 26px;
     padding-bottom: 23px;
-    display: flex;
     flex-wrap: wrap;
-    /* display: none; */
+    display: none;
 }
 
 .canvas-container {
     max-width: 541px;
-    height: 551px;
-    margin-inline-end:30px;
-}
-
-.mem-text-editor {
-    max-width: 541px;
+    /* height: 551px; */
+    padding-inline-end:30px;
 }
 
 .editor-area {
@@ -165,7 +160,7 @@ main {
 }
 
 input[name=mem-text] {
-    width: 373px;
+    /* max-width: 373px; */
     height: 60px;
     font-size: 1.25rem;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -193,7 +188,7 @@ input[name=mem-text] {
 }
 
 .select-font {
-    width: 218px;
+    max-width: 218px;
     height: 60px;
     font-size: 1.25em;
     padding: 1rem;
@@ -203,7 +198,6 @@ input[name=mem-text] {
     border-radius: 1rem;
     width: 120px;
     line-height: 60px;
-    /* margin-top: 50px; */
     color: white;
     font-size: 1.125rem;
     background-color: #ff7f00;
@@ -246,22 +240,20 @@ input[type=color] {
 
 /* GALLERY */
 
-
 .search-bar {
     height:102px;
     background-color: white;
 }
 
 .gallery {
-    min-height: 100vh;
+    min-height: 30vh;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(353px, 1fr));
     gap: 21px;
 }
 
 .grid-item {
-    /* width: 353px;
-    height: 278px; */
+    min-width: 353;
     object-fit: cover;
 }
 
@@ -277,9 +269,70 @@ input[type=color] {
 
 .keyword {
     color: black;
-    margin-inline-end: 31px;
+    padding-inline-end: 31px;
     font-size: 1.1875rem;
     align-self: baseline;
+    cursor: pointer;
 }
 
+@media (max-width: 1024px) {
+
+    .main-layout {
+        width: 100vw;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2,  1fr);
+    }
+
+    .editor-area {
+        width: 450px;
+    }
+
+    .select-font {
+        width: 220px;
+    }
+    
+
+}
+
+@media (max-width: 500px) {
+
+    .menu-btns {
+        flex-direction: column;
+    }
+
+    .nav-btn {
+        margin: 2px;
+    }
+
+    .keyword {
+        font-size: 0.8rem;
+    }
+
+    .draw-area {
+        width: 100vw; 
+    }
+
+    .canvas-container {
+        padding: 0;
+    }
+
+    .editor-area {
+        width: 100vw;
+    }
+
+    .app-btn {
+        align-self: center;;
+    }
+
+}
+
+@media (max-width: 280) {
+
+    .keyword {
+        font-size: 0.5rem;
+    }
+
+}
 

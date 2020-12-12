@@ -9,8 +9,6 @@ const gDefaultFont = {
     stroke: 'black'
 };
 
-// var gCurFont = gDefaultFont;
-
 var gCurFont = {
     name: null,
     size: null,
@@ -120,7 +118,7 @@ function drawMemeImg(meme) {
 function onGalleryMenu() {
     if (!gGalleryDisplayed) {
         document.querySelector('.memgen-container').style.display = 'none';
-        document.querySelector('.gallery').style.display = 'grid';
+        document.querySelector('.gallery-layout').style.display = 'block';
     }
 
     document.querySelector('.gallery-btn').classList.toggle('pressed');
