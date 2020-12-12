@@ -262,8 +262,8 @@ function onDownloadMeme(elLink) {
 
 function drawText(line, marked = false) {
 
-    const font = (line.font) ? line.font : (gCurFont.name) ? gCurFont.name : gDefaultFont.name;
-    const size = (line.size) ? line.size : (gCurFont.size) ? gCurFont.size : gDefaultFont.size;
+    const font = (line.font) ? line.font : gDefaultFont.name;
+    const size = (line.size) ? line.size : gDefaultFont.size;
 
     gCtx.font = `${size}px ${font}`;
     console.log('Font --- ', gCtx.font);
@@ -336,6 +336,7 @@ var gTime = 0;
 
 function onCanvasMouseDown(event) {
     console.log('Mouse down', event);
+    gTime = Date.now();
     let { offsetX, offsetY } = event;
     const meme = getMemeForDisplay();
 
@@ -386,7 +387,12 @@ function onCanvasMouseDown(event) {
 
 function onCanvasMouseUp(event) {
     console.log('CANVAS Mouse up ', event);
-
+    if ( Date.now() - gTime < 500 ) {
+        gDraggableLine = null;
+        gDraggableSticker = null;
+        return;
+    }
+    
     if (gDraggableLine) {
         const meme = getMemeForDisplay();
         var { offsetX, offsetY } = event;
