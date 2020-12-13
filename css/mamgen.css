@@ -145,7 +145,6 @@ main {
 
 .canvas-container {
     max-width: 541px;
-    /* height: 551px; */
     padding-inline-end:30px;
     margin-inline-start: 50px;
 }
@@ -162,9 +161,7 @@ main {
 }
 
 input[name=mem-text] {
-    /* max-width: 373px; */
     height: 60px;
-    font-size: 1.25rem;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1.875rem;
     letter-spacing: 0.125rem;
@@ -261,6 +258,13 @@ input[type=color] {
 .grid-item {
     min-width: 353;
     object-fit: cover;
+    
+    transition: all .15s ease-in-out;
+}
+
+.grid-item:hover {
+    transform: scale(1.02);
+    box-shadow: 1px 5px 20px 1px #b8935c;
 }
 
 .search-input {
@@ -273,12 +277,19 @@ input[type=color] {
     border-bottom: 1px solid black;
 }
 
+.keywords {
+    overflow: hidden;
+    max-height: 35px;
+}
+
 .keyword {
     color: black;
-    padding-inline-end: 31px;
+    padding-inline-end: 30px;
     font-size: 1.1875rem;
     align-self: baseline;
     cursor: pointer;
+    display: block;
+   
 }
 
 @media (max-width: 1024px) {
@@ -317,6 +328,7 @@ input[type=color] {
 
     .keyword {
         font-size: 0.8rem;
+       
     }
 
     .draw-area {
@@ -329,6 +341,10 @@ input[type=color] {
 
     .editor-area {
         width: 100vw;
+    }
+
+    .stickers-area {
+        order: -1;
     }
 
     .app-btn {

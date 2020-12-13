@@ -19,16 +19,9 @@
     <main class="main-layout">
         <div class="gallery-layout">
 
-            <div class="search-bar flex align-center space-between wrap">
+            <div class="main-layout search-bar flex align-center space-between wrap">
                 <input class="search-input" type="text" name="search" placeholder= "Enter search keyword" onchange="onFilterImages(this.value)">
                 <div class="keywords flex space-around wrap">
-                    <div class="keyword happy" onclick="onFilterImages('happy')">happy</div>
-                    <div class="keyword cute" onclick="onFilterImages('cute')">cute</div>
-                    <div class="keyword dogs" onclick="onFilterImages('dogs')">dogs</div>
-                    <div class="keyword kids" onclick="onFilterImages('kids')">kids</div>
-                    <div class="keyword animals" onclick="onFilterImages('animals')">animals</div>
-                    <div class="keyword politics" onclick="onFilterImages('politics')">politics</div>
-                    <div class="keyword laugh" onclick="onFilterImages('laugh')">laugh</div>
                 </div>
             </div>
             <div class="gallery">
@@ -36,10 +29,11 @@
         </div>
 
         <div class="memgen-container flex space-around">
-            <div class="canvas-container" onclick="onCanvasClick()">
-                <canvas class="draw-area" id="canvasId" height="551" width="541" 
+            <div class="canvas-container" onclick="onCanvasClick(event)">
+                
+                <canvas id="cnv" class="draw-area" id="canvasId" height="551" width="541" 
                 onmousedown="onCanvasMouseDown(event)"
-                onmouseup="onCanvasMouseUp(event)" onmousemove="onCanvasMouseMove(event)"></canvas>
+                onmouseup="onCanvasMouseUp(event)" onmousemove="onCanvasMouseMove(event)" ondrop="drop(event)" ondragover="allowDrop(event)"></canvas>
                 <!-- ontouchstart="onCanvasTouchStart(event)"
                 ontouchmove="onCanvasTouchMove(event)"
                 ontouchend="onCanvasTouchEnd(event)"> -->
@@ -48,12 +42,12 @@
             </div>
             <div class="editor-area flex column-direction space-between">
                 <div class="mem-text-editor flex column-direction">
-                    <input type="text" name="mem-text" placeholder="YOUR TEXT HERE"/>
+                    <input type="text" name="mem-text" placeholder="YOUR TEXT HERE" autofocus onkeydown="onAddText(event)"/>
                     <div class="edit-btns-container flex space-between">
                         <button class="editor-btn" onclick="onMoveTextUp()"><img class="ebtn-img" src="ICONS/move-up.jpg" alt=""></button>
                         <button class="editor-btn" onclick="onMoveTextDown()"><img class="ebtn-img" src="ICONS/move-down.jpg" alt=""></button>
                         <button class="editor-btn" onclick="onChangeSelectedLine()"><img class="ebtn-img" src="ICONS/up-and-down-opposite-double-arrows-side-by-side.png" alt=""></button>
-                        <button class="editor-btn" onclick="onAddText()"><img class="ebtn-img" src="ICONS/add.png" alt=""></button>
+                        <button class="editor-btn" onclick="onAddText(event)"><img class="ebtn-img" src="ICONS/add.png" alt=""></button>
                         <button class="editor-btn" onclick="onDeleteText()"><img class="ebtn-img" src="ICONS/trash.png" alt=""></button>
                     </div>
                 </div>
@@ -82,14 +76,12 @@
                             <input class="fill-color-select" type="color" id="fcolor" name="fill-color" value="#ffffff" onchange="onChangeFillColor(this.value)"/>
                         </button>
                     </div>
-
-
                 </div>
 
                 <div class="stickers-area">
-                    <img  src="stickes/present.png" alt="" onclick="onAddSticker(this)">
-                    <img  src="stickes/hat.png" alt="" onclick="onAddSticker(this)">
-                    <img  src="stickes/galsses_and_nose.png" alt="" onclick="onAddSticker(this)">
+                    <img  id="drg" src="stickes/present.png" alt=""  draggable="true" ondragstart="drag(event, this.src)">
+                    <img  src="stickes/hat.png" alt=""  draggable="true" ondragstart="drag(event,  this.src)">
+                    <img  src="stickes/galsses_and_nose.png" alt=""  draggable="true" ondragstart="drag(event, this.src)">
                 </div>
                 <a href="#" class="app-btn" onclick="onDownloadMeme(this)" download="meme.jpg">Download</a>
             </div>
@@ -97,7 +89,7 @@
     </main>
     <footer>
         <img class="logo logo-footer" src="LOGO/LOGO.png" alt="memgen">
-        <p>all rights reserved 2019</p>
+        <p>all rights preserved 2020</p>
     </footer>
     <script src="js/memgen-service.js"></script>
     <script src="js/memgen-controller.js"></script>

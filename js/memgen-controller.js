@@ -4,7 +4,7 @@ var gCtx;
 
 const gDefaultFont = {
     name: 'Impact',
-    size: 60,
+    size: 80,
     color: 'white',
     stroke: 'black'
 };
@@ -25,7 +25,7 @@ function onInit() {
     gGalleryDisplayed = true;
 }
 
-function renderGallery(keyword = 'all') {
+function renderGallery(keyword = '') {
 
     renderKeywords();
 
@@ -44,7 +44,7 @@ function onFilterImages(keyword) {
 
     if (keyword) addRateToKeayword(keyword);
 
-    if (keyword === '') keyword = 'all';
+    document.querySelector('.search-input').value = keyword;
     renderGallery(keyword);
 
 }
@@ -55,18 +55,24 @@ function renderKeywords() {
 
     console.log('Keywords ...', keywords);
 
+    let strHTMLs = [];
+
+    for ( var key in keywords ) {
+        strHTMLs.push(`<div class="keyword" onclick="onFilterImages('${key}')">${key}</div>`);
+    }
+
+    document.querySelector('.keywords').innerHTML = strHTMLs.join('');
+
     const elKwds = document.querySelectorAll('.keyword');
 
     elKwds.forEach(elKwd => {
 
         let text = elKwd.innerText;
-        console.log('El keywod text ', text);
+        console.log('El keyword text ', text);
         console.log('Rate is ', keywords[elKwd.innerText]);
-
         elKwd.style.fontSize = keywords[elKwd.innerText] + 'px';
-
-
     });
+
 }
 
 function initMemeGenEditor() {
@@ -101,7 +107,7 @@ function drawMemeImg(meme) {
 
         if (gMarkSelected && meme.lines[meme.selectedLineIdx]) drawText(meme.lines[meme.selectedLineIdx], true);
 
-        gMarkSelected = true;
+        // gMarkSelected = true;
 
         gMeme.stickers.forEach(stck => {
             const img = new Image();
@@ -133,15 +139,20 @@ function onClickChangeFillColor(elBtn) {
     elBtn.querySelector('input').click();
 }
 
-function onAddText() {
+function onAddText(event = null) {
 
-    const elInputText = document.querySelector('input[name=mem-text]');
+    console.log('Event ', event);
+    if ( (event.type === 'keydown' && event.key === 'Enter') || (event.type === 'click')) {
 
-    if (elInputText.value) {
-        const text = elInputText.value;
-        addTextToMeme(text, gCanvas.height);
-        renderCanvas();
+        const elInputText = document.querySelector('input[name=mem-text]');
+
+        if (elInputText.value) {
+            const text = elInputText.value;
+            addTextToMeme(text, gCanvas.height);
+            renderCanvas();
+        }
     }
+
 }
 
 function onChooseImage(el) {
@@ -154,6 +165,7 @@ function onChooseImage(el) {
 
     gGalleryDisplayed = false;
     document.querySelector('.gallery-btn').classList.toggle('pressed');
+    document.querySelector('input[name=mem-text]').focus();
     initMemeGenEditor();
 }
 
@@ -161,7 +173,7 @@ function onSetFont(font) {
 
     const meme = getMemeForDisplay();
 
-    if ( meme.lines.length > 0 ) {
+    if (meme.lines.length > 0) {
         meme.lines[meme.selectedLineIdx].font = font;
     }
 
@@ -229,6 +241,7 @@ function onChangeSelectedLine() {
     if (gUpDownDir === 1) meme.selectedLineIdx++;
     else meme.selectedLineIdx--;
 
+    gMarkSelected = true;
     renderCanvas();
 }
 
@@ -236,7 +249,7 @@ function onChangeFillColor(value) {
 
     const meme = getMemeForDisplay();
 
-    if ( meme.lines.length > 0 ) meme.lines[meme.selectedLineIdx].color = value;
+    if (meme.lines.length > 0) meme.lines[meme.selectedLineIdx].color = value;
 
     gCurFont.color = value;
 
@@ -247,7 +260,7 @@ function onChangeStrokeColor(value) {
 
     const meme = getMemeForDisplay();
 
-    if ( meme.lines.length > 0 ) meme.lines[meme.selectedLineIdx].stroke = value;
+    if (meme.lines.length > 0) meme.lines[meme.selectedLineIdx].stroke = value;
 
     gCurFont.stroke = value;
 
@@ -292,7 +305,7 @@ function drawText(line, marked = false) {
     if (marked) drawRect(line.x - 15, line.y + 10, text_width + 30, -line.size - 10);
 
     gCtx.lineWidth = '3';
-    
+
     // gCtx.strokeStyle = (line.stroke) ? line.stroke : (gCurFont.stroke) ? gCurFont.stroke : gDefaultFont.stroke;
     // gCtx.fillStyle = (line.color) ? line.color : (gCurFont.color) ? gCurFont.color : gDefaultFont.color;
 
@@ -325,17 +338,37 @@ var gDraggableLineIdx;
 var gDraggableSticker = null;
 var gDraggableStickerIdx;
 
-function onCanvasClick() {
+function onCanvasClick(event) {
 
-    gMarkSelected = false;
+    console.log('Click event', event);
+    let { offsetX, offsetY } = event;
+    const meme = getMemeForDisplay();
+
+    let idx = -1;
+    let clickedLine = meme.lines.find(line => {
+        idx++;
+        return offsetX >= line.x && offsetX <= line.x + line.textWidth
+            && offsetY >= line.y - line.size && offsetY < line.y;
+    });
+    
+    console.log('clicked line', clickedLine);
+    console.log('not clicked line', !clickedLine);
+
+    if (!clickedLine) {
+        
+        gMarkSelected = false;
+
+    }
 
     renderCanvas();
+
 }
 
 var gTime = 0;
 
 function onCanvasMouseDown(event) {
     console.log('Mouse down', event);
+
     gTime = Date.now();
     let { offsetX, offsetY } = event;
     const meme = getMemeForDisplay();
@@ -354,6 +387,9 @@ function onCanvasMouseDown(event) {
         meme.selectedLineIdx = idx;
         meme.selectedItem = 'line';
         clickedLine.align = 'none';
+        document.querySelector('.draw-area').style.cursor = 'grabbing';
+
+        gMarkSelected = true;
         return;
     }
 
@@ -379,6 +415,7 @@ function onCanvasMouseDown(event) {
             gDraggableStickerIdx = sIdx;
             meme.selectedStickerIdx = sIdx;
             meme.selectedItem = 'sticker';
+            document.querySelector('.draw-area').style.cursor = 'grabbing';
             return;
         }
     }
@@ -387,12 +424,16 @@ function onCanvasMouseDown(event) {
 
 function onCanvasMouseUp(event) {
     console.log('CANVAS Mouse up ', event);
-    if ( Date.now() - gTime < 500 ) {
+    document.querySelector('.draw-area').style.cursor = 'default';
+    
+    // gMarkSelected = false;
+
+    if (Date.now() - gTime < 500) {
         gDraggableLine = null;
         gDraggableSticker = null;
         return;
     }
-    
+
     if (gDraggableLine) {
         const meme = getMemeForDisplay();
         var { offsetX, offsetY } = event;
@@ -428,7 +469,7 @@ function onCanvasMouseMove(event) {
         meme.lines[gDraggableLineIdx].y = offsetY;
 
         renderCanvas();
-     
+
     }
 
     if (gDraggableSticker) {
@@ -442,119 +483,6 @@ function onCanvasMouseMove(event) {
     }
 }
 
-// function onCanvasTouchStart(event) {
-//     // event.preventDefault();
-//     console.log('Mouse event - start ', event);
-//     console.log('Touch event - start ', event);
-
-//     event.changedTouches[0]
-
-//     let offsetX= event.changedTouches[0].clientX;
-//     let offsetY = event.changedTouches[0].clientY;
-//     const meme = getMemeForDisplay();
-
-//     let idx = -1;
-//     let clickedLine = meme.lines.find(line => {
-//         idx++;
-//         return offsetX >= line.x && offsetX <= line.x + line.textWidth
-//             && offsetY >= line.y - line.size && offsetY < line.y;
-//     });
-
-//     if (clickedLine) {
-//         console.log('clicked line ', clickedLine);
-//         gDraggableLine = clickedLine;
-//         gDraggableLineIdx = idx;
-//         meme.selectedLineIdx = idx;
-//         meme.selectedItem = 'line';
-//         clickedLine.align = 'none';
-//         return;
-//     }
-
-//     if (gStickerSelected) { //sticker just added to meme
-//         const meme = getMemeForDisplay();
-//         meme.stickers[meme.selectedStickerIdx];
-//         meme.stickers[meme.selectedStickerIdx].x = offsetX;
-//         meme.stickers[meme.selectedStickerIdx].y = offsetY;
-//         gStickerSelected = false;
-//         document.querySelector('.selected').classList.toggle('selected');
-//     } else { //dragging existing sticker
-
-//         let sIdx = -1;
-//         let clickedSticker = meme.stickers.find(sticker => {
-//             sIdx++;
-//             return offsetX >= sticker.x && offsetX <= sticker.x + 75
-//                 && offsetY >= sticker.y && offsetY < sticker.y + 75;
-//         });
-
-//         if (clickedSticker) {
-//             console.log('SET ALL DATA TO STICKER...');
-//             gDraggableSticker = clickedSticker;
-//             gDraggableStickerIdx = sIdx;
-//             meme.selectedStickerIdx = sIdx;
-//             meme.selectedItem = 'sticker';
-//             return;
-//         }
-//     }
-// }
-
-// function onCanvasTouchMove(event) {
-//     event.preventDefault();
-//     console.log('Touch event - move ', event);
-// }
-
-// function onCanvasTouchEnd(event) {
-//     // event.preventDefault();
-//     console.log('Mouse event - end ', event);
-//     console.log('Touch event - end ', event);
-
-//     let offsetX= event.changedTouches[0].clientX;
-//     let offsetY = event.changedTouches[0].clientY;
-//     const meme = getMemeForDisplay();
-
-//     let idx = -1;
-//     let clickedLine = meme.lines.find(line => {
-//         idx++;
-//         return offsetX >= line.x && offsetX <= line.x + line.textWidth
-//             && offsetY >= line.y - line.size && offsetY < line.y;
-//     });
-
-//     if (clickedLine) {
-//         console.log('clicked line ', clickedLine);
-//         gDraggableLine = clickedLine;
-//         gDraggableLineIdx = idx;
-//         meme.selectedLineIdx = idx;
-//         meme.selectedItem = 'line';
-//         clickedLine.align = 'none';
-//         return;
-//     }
-
-//     if (gStickerSelected) { //sticker just added to meme
-//         const meme = getMemeForDisplay();
-//         meme.stickers[meme.selectedStickerIdx];
-//         meme.stickers[meme.selectedStickerIdx].x = offsetX;
-//         meme.stickers[meme.selectedStickerIdx].y = offsetY;
-//         gStickerSelected = false;
-//         document.querySelector('.selected').classList.toggle('selected');
-//     } else { //dragging existing sticker
-
-//         let sIdx = -1;
-//         let clickedSticker = meme.stickers.find(sticker => {
-//             sIdx++;
-//             return offsetX >= sticker.x && offsetX <= sticker.x + 75
-//                 && offsetY >= sticker.y && offsetY < sticker.y + 75;
-//         });
-
-//         if (clickedSticker) {
-//             console.log('SET ALL DATA TO STICKER...');
-//             gDraggableSticker = clickedSticker;
-//             gDraggableStickerIdx = sIdx;
-//             meme.selectedStickerIdx = sIdx;
-//             meme.selectedItem = 'sticker';
-//             return;
-//         }
-//     }
-// }
-
 function onAddSticker(elImg) {
 
     gStickerSelected = true;
@@ -562,4 +490,37 @@ function onAddSticker(elImg) {
     addSticker(elImg.src);
 
     elImg.classList.toggle('selected');
+}
+
+var gStickerImgSrc;
+
+function drag(event, imgSrc) {
+
+    console.log('Drag event', drag);
+    event.dataTransfer.setData("text/plain", event.target.id);
+
+    gStickerImgSrc = imgSrc;
+
+    var img = new Image();
+    img.src = imgSrc;
+    event.dataTransfer.setDragImage(img, 75, 75);
+}
+
+function drop(event){
+    console.log('Drop event', event);
+    event.preventDefault();
+    
+    const img = new Image();
+    img.src = gStickerImgSrc;
+    img.onload = () => {
+        gCtx.drawImage(img, event.offsetX, event.offsetY, 75, 75);
+    }
+
+    addSticker(img.src, event.offsetX, event.offsetY );
+    gStickerImgSrc = null;
+
+}
+
+function allowDrop(event) {
+    event.preventDefault();
 }
